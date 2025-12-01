@@ -200,9 +200,10 @@ ReadFile(Arena *arena, Arena *scratch, String path)
 	temp.count = (umm)buf.st_size;
 	temp.data = PushArray(scratch, u8, temp.count);
 	String result = {0};
-	if (read(fd, temp.data, temp.count))
+	smm bytes_read = read(fd, temp.data, temp.count);
+	if (bytes_read > 0)
 	{
-		result = StringCopy(arena, temp);
+		result = StringCopy(arena, StringPrefix(temp, (umm)bytes_read));
 	}
 
 	close(fd);
