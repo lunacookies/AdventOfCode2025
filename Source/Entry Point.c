@@ -11,6 +11,7 @@
 #include "Utils.c"
 
 #include "Day 1 Part 1.c"
+#include "Day 1 Part 2.c"
 
 int
 main(void)
@@ -18,5 +19,6 @@ main(void)
 	Arena *arena = ArenaAlloc();
 	Day1Part1(arena);
 	ArenaClear(arena);
+	Day1Part2(arena);
 	ArenaRelease(arena);
 }

@@ -16,6 +16,8 @@ typedef smm bmm;
 #define Assert(condition) \
 	if (!(condition)) DebugTrap();
 
+static smm Abs(smm x);
+
 static void MemoryCopy(void *dst, void *src, umm size);
 static void MemorySet(void *dst, umm size, u8 byte);
 static void MemoryZero(void *dst, umm size);

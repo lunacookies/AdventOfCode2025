@@ -1,3 +1,10 @@
+static smm
+Abs(smm x)
+{
+	smm result = x > 0 ? x : -x;
+	return result;
+}
+
 static void
 MemoryCopy(void *dst, void *src, umm size)
 {
