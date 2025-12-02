@@ -12,6 +12,7 @@
 
 #include "Day 1 Part 1.c"
 #include "Day 1 Part 2.c"
+#include "Day 2 Part 1.c"
 
 int
 main(void)
@@ -20,5 +21,7 @@ main(void)
 	Day1Part1(arena);
 	ArenaClear(arena);
 	Day1Part2(arena);
+	ArenaClear(arena);
+	Day2Part1(arena);
 	ArenaRelease(arena);
 }
