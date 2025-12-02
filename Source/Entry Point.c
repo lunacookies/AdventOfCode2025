@@ -11,18 +11,15 @@
 #include "Utils.h"
 #include "Utils.c"
 
-#include "Day 1 Part 1.c"
-#include "Day 1 Part 2.c"
-#include "Day 2 Part 1.c"
+#include "Day 1.c"
+#include "Day 2.c"
 
 int
 main(void)
 {
 	Arena *arena = ArenaAlloc();
-	Day1Part1(arena);
+	Day1(arena);
 	ArenaClear(arena);
-	Day1Part2(arena);
-	ArenaClear(arena);
-	Day2Part1(arena);
+	Day2(arena);
 	ArenaRelease(arena);
 }

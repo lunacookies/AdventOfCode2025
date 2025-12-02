@@ -30,7 +30,7 @@ IDIsInvalid(umm id)
 }
 
 static void
-Day2Part1(Arena *scratch)
+Day2(Arena *scratch)
 {
 	String string = ReadFile(scratch, scratch, S("Inputs/Day 2.txt"));
 	StringList ranges = StringSplit(scratch, string, ',');
@@ -53,5 +53,5 @@ Day2Part1(Arena *scratch)
 		}
 	}
 
-	printf("%zu\n", sum);
+	printf("Day 2 Part 1: %zu\n", sum);
 }

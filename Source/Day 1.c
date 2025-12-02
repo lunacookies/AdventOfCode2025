@@ -1,10 +1,11 @@
 static void
-Day1Part2(Arena *scratch)
+Day1(Arena *scratch)
 {
 	String string = ReadFile(scratch, scratch, S("Inputs/Day 1.txt"));
 	StringList lines = StringSplit(scratch, string, '\n');
 	smm dial = 50;
-	umm count = 0;
+	umm part_1_count = 0;
+	umm part_2_count = 0;
 
 	for (StringNode *node = lines.first; node; node = node->next)
 	{
@@ -18,14 +19,21 @@ Day1Part2(Arena *scratch)
 
 			umm full_rotations = (umm)Abs(move / 100);
 			smm partial_rotation = move % 100;
-			count += full_rotations;
-			count += dial + partial_rotation < -1 || dial + partial_rotation >= 100;
+			part_2_count += full_rotations;
+			part_2_count += dial + partial_rotation < 0 || dial + partial_rotation >= 100;
 
-			dial = Abs((dial + move) % 100);
+			dial = (dial + move) % 100;
+			if (dial < 0)
+			{
+				dial = 100 - Abs(dial);
+			}
 			Assert(dial >= 0);
 			Assert(dial <= 99);
+
+			if (!dial) part_1_count++;
 		}
 	}
 
-	printf("%zu\n", count);
+	printf("Day 1 Part 1: %zu\n", part_1_count);
+	printf("Day 1 Part 2: %zu\n", part_2_count);
 }
