@@ -138,9 +138,11 @@ StringSplit(Arena *arena, String string, u8 delimiter)
 {
 	StringList result = {0};
 
-	String remaining = string;
-	for (String before = {0}; StringCut(remaining, delimiter, &before, &remaining);)
+	for (String remaining = string;;)
 	{
+		String before = {0};
+		bmm more = StringCut(remaining, delimiter, &before, &remaining);
+
 		StringNode *node = PushStruct(arena, StringNode);
 		node->string = before;
 
@@ -154,6 +156,8 @@ StringSplit(Arena *arena, String string, u8 delimiter)
 		}
 		result.last = node;
 		result.count++;
+
+		if (!more) break;
 	}
 
 	return result;
