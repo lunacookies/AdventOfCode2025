@@ -17,6 +17,8 @@ typedef smm bmm;
 	if (!(condition)) DebugTrap();
 
 static smm Abs(smm x);
+static umm SetBitCount(umm x);
+static umm AlignPadPow2(umm base, umm align);
 
 static void MemoryCopy(void *dst, void *src, umm size);
 static void MemorySet(void *dst, umm size, u8 byte);
@@ -33,8 +35,8 @@ struct Arena
 static Arena *ArenaAlloc(void);
 static void ArenaRelease(Arena *arena);
 static void ArenaClear(Arena *arena);
-static void *PushSize(Arena *arena, umm size);
-#define PushArray(arena, T, count) ((T *)PushSize((arena), sizeof(T) * (count)))
+static void *PushSize(Arena *arena, umm size, umm align);
+#define PushArray(arena, T, count) ((T *)PushSize((arena), sizeof(T) * (count), alignof(T)))
 #define PushStruct(arena, T) (PushArray((arena), T, 1))
 
 typedef struct String String;

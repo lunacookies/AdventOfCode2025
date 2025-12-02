@@ -5,6 +5,22 @@ Abs(smm x)
 	return result;
 }
 
+static umm
+SetBitCount(umm x)
+{
+	umm result = (umm)__builtin_popcountll(x);
+	return result;
+}
+
+static umm
+AlignPadPow2(umm base, umm align)
+{
+	Assert(SetBitCount(align) == 1);
+	umm mask = align - 1;
+	umm result = -base & mask;
+	return result;
+}
+
 static void
 MemoryCopy(void *dst, void *src, umm size)
 {
@@ -50,17 +66,20 @@ ArenaClear(Arena *arena)
 }
 
 static void *
-PushSize(Arena *arena, umm size)
+PushSize(Arena *arena, umm size, umm align)
 {
 	void *result = 0;
 	if (size)
 	{
 		Assert(arena->used <= arena->capacity);
 		umm remaining = arena->capacity - arena->used;
-		Assert(size <= remaining);
 		u8 *buf = (u8 *)arena + sizeof(Arena);
-		result = buf + arena->used;
-		arena->used += size;
+		umm padding = AlignPadPow2((umm)buf + arena->used, align);
+		umm needed_space = padding + size;
+		Assert(needed_space <= remaining);
+		result = buf + arena->used + padding;
+		Assert(!((umm)result & (align - 1)));
+		arena->used += needed_space;
 	}
 	return result;
 }
